@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - Forgery Check{% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+    <!-- Contact Section -->
+    <section class="contact-section p-5" style="border-radius: 10px;">
+        <div class="row align-items-center">
+            <!-- Contact Info -->
+            <div class="col-md-6">
+                <p class="mb-1" style="color: #000000; font-weight: 500;">How can we help you?</p>
+                <h2 class="mb-4" style="color: #3D52A0; font-weight: bold;">Contact us</h2>
+                <p style="color: #3D52A0;">We're here to help and answer any questions you might have. We look forward to hearing from you!</p>
+                
+                <p><i class="fas fa-map-marker-alt"></i> VIT-AP University, Inavolu, Beside AP Secretariat Amaravati, Andhra Pradesh 522237</p>
+                <p><i class="fas fa-phone"></i> +91 12345 67890</p>
+                <p><i class="fas fa-envelope"></i> 
+                    <a href="mailto:forgerycheckmail@example.com" style="color: #3D52A0; text-decoration: none;">forgerycheckmail@example.com</a>
+                </p>
+            </div>
+
+            <!-- Contact Image -->
+            <div class="col-md-6 text-center" style="margin-top: 20px; padding-left: 100px;"> <!-- Added padding-left for spacing -->
+                <div style="width: 180px; height: 180px; background-color: #EDE8F5; border-radius: 50%; border: 3px solid #3D52A0; display: flex; align-items: center; justify-content: center;">
+                    <img src="{% static 'img/contact-icon.png' %}" alt="Contact Icon" style="max-width: 120px; height: auto;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Message Form Style -->
+    <section class="message-form mt-5 mb-5">
+        <div class="row justify-content-center align-items-center bg-white rounded-4 shadow p-4" style="max-width: 1200px; margin: auto;">
+            <div class="col-md-6 px-4">
+                <h3 class="mb-3" style="color: #1B1A38; font-weight: bold; font-size: 1.5rem;">We’re happy to help!</h3>
+                <p class="mb-3" style="color: #1B1A38; font-size: 1rem;">Please fill out the form</p>
+                <form action="{% url 'send_message' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" class="form-control rounded-3 px-3 py-3" name="name" placeholder="Name" required style="background-color: #EDE8F5; border: none;">
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control rounded-3 px-3 py-3" name="email" placeholder="Email" required style="background-color: #EDE8F5; border: none;">
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control rounded-3 px-3 py-3" name="message" rows="4" placeholder="Message" required style="background-color: #EDE8F5; border: none;"></textarea>
+                    </div>
+                    <button type="submit" class="btn w-100 text-white fw-bold py-2 rounded-3" style="background-color: #3D52A0;">SUBMIT</button>
+                </form>
+            </div>
+
+            <!-- Illustration -->
+            <div class="col-md-6 text-center px-4">
+                <img src="{% static 'img/contact-illustration.png' %}" alt="Contact Illustration" class="img-fluid" style="max-height: 360px;">
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+</main>
+{% endblock %}

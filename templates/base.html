@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Keep your dynamic title block -->
+    <title>{% block title %}Forgery Check{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock %}
+    
+    <!-- Updated magnify plugin CSS without integrity attribute -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.3/css/magnify.min.css" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Start Navbar Update -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'img/logo.png' %}" alt="Forgery Check Logo">
+                <span>Forgery Check</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">HOME</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'image_upload' or request.resolver_match.url_name == 'video_upload' %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown">
+                            DETECT
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'image_upload' %}"><i class="fas fa-image me-2"></i>Upload Image</a></li>
+                            <li><a class="dropdown-item" href="{% url 'video_upload' %}"><i class="fas fa-video me-2"></i>Upload Video</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            DEMO
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'how_it_works' %}"><i class="fas fa-info-circle me-2"></i>How it Works</a></li>
+                            <li><a class="dropdown-item" href="{% url 'faqs' %}"><i class="fas fa-question-circle me-2"></i>FAQs</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="{% url 'contact' %}">CONTACT US</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle fa-lg"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'history' %}"><i class="fas fa-history me-2"></i>Analysis History</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                     <a class="dropdown-item text-danger" href="#" onclick="document.getElementById('logout-form').submit(); return false;">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                    </a>
+                                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                                        {% csrf_token %}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}" href="{% url 'register' %}">REGISTER</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content container-fluid pt-3">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Conditionally include footer only on the home page -->
+    {% if request.resolver_match.url_name == 'index' %}
+        <footer style="position: relative; background-color: #3D52A0; color: #ffffff;">
+            <div style="position: absolute; top: -60px; left: 0; width: 100%; overflow: hidden; line-height: 0;">
+                <svg viewBox="0 0 500 150" preserveAspectRatio="none"
+                    style="position: relative; display: block; width: calc(100% + 1.3px); height: 60px;">
+                    <path d="M0.00,49.98 C150.00,150.00 350.00,-50.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+                        style="stroke: none; fill: #3D52A0;"></path>
+                </svg>
+            </div>
+
+            <div class="container pt-2">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div style="display: flex; align-items: center;">
+                            <img src="{% static 'img/logo.png' %}" alt="Forgery Check Logo"
+                                style="max-width: 50px; margin-right: 10px;">
+                            <h5 style="color: #ffffff;">Forgery Check</h5>
+                        </div>
+                        <p>Your trusted partner in digital content authenticity.</p>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h5 style="color: #ffffff;">Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'index' %}" class="text-white">Home</a></li>
+                            <li><a href="{% url 'image_upload' %}" class="text-white">Image Analysis</a></li>
+                            <li><a href="{% url 'video_upload' %}" class="text-white">Video Analysis</a></li>
+                            <li><a href="{% url 'contact' %}" class="text-white">Contact Us</a></li>
+                            <li><a href="{% url 'how_it_works' %}" class="text-white">How It Works</a></li>
+                            <li><a href="{% url 'faqs' %}" class="text-white">FAQs</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h5 style="color: #ffffff;">Contact</h5>
+                        <p>Follow us on social media:</p>
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="text-left mt-4">
+                    <p>© 2025 ForgeryCheck</p>
+                </div>
+                <br>
+            </div>
+        </footer>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

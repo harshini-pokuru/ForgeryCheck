@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Register - Forgery Check{% endblock %}
+
+{% block content %}
+<div class="split-container">
+    <div class="split left">
+        <div class="form-wrapper form-compact">
+            <h3 class="text-start mb-2">Sign Up</h3>
+            <p class="text-start text-muted mb-4">It's quick and easy.</p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <div id="div_id_username" class="mb-3">
+                    <label for="id_username" class="form-label requiredField">
+                        Username<span class="asteriskField">*</span>
+                    </label>
+                    <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus class="textinput form-control" required id="id_username">
+                </div>
+                <div id="div_id_email" class="mb-3">
+                    <label for="id_email" class="form-label requiredField">
+                        Email<span class="asteriskField">*</span>
+                    </label>
+                    <input type="email" name="email" maxlength="320" class="emailinput form-control" required id="id_email">
+                </div>
+                <div id="div_id_password1" class="mb-3">
+                    <label for="id_password1" class="form-label requiredField">
+                        Password<span class="asteriskField">*</span>
+                    </label>
+                    <input type="password" name="password1" autocomplete="new-password" class="passwordinput form-control" required id="id_password1">
+                </div>
+                <div id="div_id_password2" class="mb-3">
+                    <label for="id_password2" class="form-label requiredField">
+                        Password confirmation<span class="asteriskField">*</span>
+                    </label>
+                    <input type="password" name="password2" autocomplete="new-password" class="passwordinput form-control" required id="id_password2">
+                </div>
+                <div class="d-grid gap-2 mt-3">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Register
+                    </button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="split right">
+        <div class="image-wrapper">
+            <img src="{% static 'img/signup-image.png' %}" alt="Register" class="auth-image">
+        </div>
+    </div>
+</div>
+{% endblock %}

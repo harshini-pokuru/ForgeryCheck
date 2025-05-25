@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Forgery Check{% endblock %}
+
+{% block content %}
+
+    <!-- Removed navbar as it's now in base.html -->
+    <main class="container-fluid p-0"> <!-- This main tag might be redundant now, consider removing if base.html's main is sufficient -->
+        <div class="container mt-6 mb-4 pb-4">
+            <br>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="mega-title mb-4">AI-Powered Protection Against Digital Deception</h1>
+                    <p class="lead mb-4">At Forgery Check, we use advanced AI and forensic analysis to detect forged images and videos, ensuring truth and authenticity in a digitally evolving world.</p>
+                    <div class="mt-4 mb-4">
+                        <!-- Conditional Buttons based on Authentication -->
+                        {% if user.is_authenticated %}
+                            <!-- Show analysis buttons for logged-in users -->
+                            <a href="{% url 'image_upload' %}" class="btn btn-primary btn-lg me-2">Start Image Analysis</a>
+                            <!-- <a href="{% url 'video' %}" class="btn btn-secondary btn-lg">Analyze Video</a> -->
+                        {% else %}
+                            <!-- Show 'Get Started' button for guests, linking to registration -->
+                            <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Get Started</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="floating-image mb-3">
+                        <img src="{% static 'img/hero-image.png' %}" alt="AI Protection" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="features-section mt-5 pt-4">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-shield-alt fa-2x"></i>
+                            </div>
+                            <h3>How can we detect forged images and videos?</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-check-circle fa-2x"></i>
+                            </div>
+                            <h3>Are they manipulated or genuine?</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-video fa-2x"></i>
+                            </div>
+                            <h3>Have we received an original or a deepfake?</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Start: Added Description Section -->
+        <!-- Removed bg-light class to make background match the page default -->
+        <section class="description-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <!-- Changed col-lg-10 to col-lg-11 to make the text wider -->
+                    <div class="col-lg-11 text-center">
+                        <h2 class="mb-4"><strong>Forgery Check helps answer these questions</strong></h2>
+
+                        <!-- Changed text color to #3D52A0 using inline style, kept fs-5 and justification -->
+                        <p class="fs-5" style="color: #3D52A0; text-align: justify;">
+                            We developed a powerful platform that automatically detects forgery in both images and videos. Whether you're verifying a JPEG photo or a suspicious video clip, Forgery Check uses cutting-edge forensic techniques to uncover tampering and manipulation.
+                        </p>
+
+                        <!-- Changed text color to #3D52A0 using inline style, kept fs-5 and justification -->
+                        <p class="fs-5" style="color: #3D52A0; text-align: justify;">
+                            Forgery Check integrates multiple state-of-the-art technologies along with proprietary machine learning models to deliver precise and reliable results. You can now validate the authenticity of your digital content in just a few clicks. Upload your image or video and receive an instant report indicating if it's genuine or forged. Each analysis comes with a confidence score and a detailed breakdown of findings to support your evaluation.
+                        </p>
+
+                        <hr class="my-4"> {# Optional separator #}
+                        <p class="h4 mt-4"> {# Increased size for emphasis #}
+                            <strong><a href="{% url 'image_upload' %}" class="text-decoration-none">Try Forgery Check, be on the safe side!</a></strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End: Added Description Section -->
+
+        <!-- Start: New Image Feature Section -->
+        <!-- Further reduced padding for a thinner rectangle -->
+        <section class="container mt-5" style="background-color: #f8f9fa; padding: 10px 10px 5px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div class="row align-items-center">
+                <!-- Added padding to the text column for space between text and rectangle -->
+                <div class="col-md-6" style="font-size: 1.25rem; color: #7091E6; padding-left: 110px;">
+                    <p>
+                        Our AI-powered system detects image and video forgeries with confidence scores.
+                    </p>
+                    <p>
+                        Ensure authenticity with AI-driven detection.
+                    </p>
+                    
+                </div>
+                <div class="col-md-6 text-center">
+                    <!-- Reduced image size -->
+                    <img src="{% static 'img/woman-search.png' %}" alt="Forgery Image" style="max-width: 80%; height: 250px; border-radius: 10px;" />
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </section>
+        <!-- End: New Image Feature Section -->
+        <!-- Start: Consolidated Feature Section -->
+        <section class="container mt-5">
+            <h2 class="text-center" style="color: #3D52A0;">Forgery Check for Visual Media</h2>
+            <div class="row mt-4">
+                <div class="col-md-6" style="font-size: 1rem; color: #3D52A0; line-height: 1.6;">
+                    <p>The spread of manipulated images has become a major concern, leading to misinformation, reputational damage, and even legal issues. At ForgeryCheck, we use advanced AI-powered Image Forgery Detection to analyze images and detect tampering. If you suspect an image has been altered, then:</p>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> Upload the suspicious image for analysis.</li>
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> We will conduct a forensic examination to check for inconsistencies.</li>
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> Our system detects various forms of tampering, including copy-move and noise inconsistencies.</li>
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> If forgery is detected, you will receive a detailed report with confidence scores and visual evidence.</li>
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> If you are a journalist, researcher, or concerned individual, use our system to verify authenticity.</li>
+                    </ul>
+                    <a href="{% url 'image_upload' %}" class="btn btn-primary mt-3">Analyze Image</a>
+                </div>
+                <div class="col-md-6" style="font-size: 1rem; color: #3D52A0; line-height: 1.6;">
+                    <p>Deepfake videos and digitally altered footage pose a significant and growing risk, 
+                        from fake news to identity theft and fraud. At ForgeryCheck, we use advanced techniques and 
+                        cutting-edge technology to verify video authenticity. If you suspect a video has 
+                        been manipulated:</p>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> Upload the suspicious video for verification.</li>
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> We will conduct a frame-by-frame forensic analysis to check for manipulation.</li>
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> Our system detects deepfake faces, AI-generated voices, and frame alterations.</li>
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> If forgery is detected, you will receive a detailed report highlighting the manipulation.</li>
+                        <li><i class="fas fa-search" style="color: #7091E6; margin-right: 10px;"></i> Protect yourself and your community from misinformation and fraud.</li>
+                    </ul>
+                    <a href="{% url 'video_upload' %}" class="btn btn-primary mt-3">Analyze Video</a>
+                </div>
+            </div>
+        </section>
+        <!-- End: Consolidated Feature Section -->
+
+        <!-- Start: Benefits Section -->
+        <section class="benefits-section mt-5 pt-4">
+            <div class="container text-center">
+                <h2 class="mb-4" style="color: #3D52A0;">Benefits</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="benefit-box" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div class="icon-wrapper mb-3" style="height: 60px; width: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background-color: #e0e0e0;">
+                                <i class="fas fa-user-circle fa-2x" style="color: #7091E6;"></i>
+                            </div>
+                            <h4 style="font-size: 1.1rem;">User-Friendly Interface</h4>
+                            <p>Easily upload content and get results—no technical skills required.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-box" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div class="icon-wrapper mb-3" style="height: 60px; width: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background-color: #e0e0e0;">
+                                <i class="fas fa-clock fa-2x" style="color: #7091E6;"></i>
+                            </div>
+                            <h4 style="font-size: 1.1rem;">Time Efficiency</h4>
+                            <p>Validate digital media in seconds with just a few clicks.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-box" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div class="icon-wrapper mb-3" style="height: 60px; width: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background-color: #e0e0e0;">
+                                <i class="fas fa-shield-alt fa-2x" style="color: #7091E6;"></i>
+                            </div>
+                            <h4 style="font-size: 1.1rem;">Enhanced Security & Trust</h4>
+                            <p>Protect yourself from fraud and misinformation with AI-backed verification.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-box" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div class="icon-wrapper mb-3" style="height: 60px; width: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background-color: #e0e0e0;">
+                                <i class="fas fa-sync-alt fa-2x" style="color: #7091E6;"></i>
+                            </div>
+                            <h4 style="font-size: 1.1rem;">Real-Time Analysis</h4>
+                            <p>Instant, frame-by-frame results when you need them most.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-box" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div class="icon-wrapper mb-3" style="height: 60px; width: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background-color: #e0e0e0;">
+                                <i class="fas fa-file-video fa-2x" style="color: #7091E6;"></i>
+                            </div>
+                            <h4 style="font-size: 1.1rem;">Broad Media Compatibility</h4>
+                            <p>Supports multiple image and video formats for comprehensive analysis.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-box" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <div class="icon-wrapper mb-3" style="height: 60px; width: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background-color: #e0e0e0;">
+                                <i class="fas fa-brain fa-2x" style="color: #7091E6;"></i>
+                            </div>
+                            <h4 style="font-size: 1.1rem;">Advanced Detection Technology</h4>
+                            <p>Powered by AI and machine learning for maximum accuracy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End: Benefits Section -->
+
+
+    </main>
+    <!-- Removed script tag as it's now in base.html -->
+    <!-- Start: Call-to-Action Section -->
+    <section class="cta-section mt-5 pt-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="mb-4" style="color: #3D52A0;">Ready to Benefit from ForgeryCheck?</h2>
+                    <p style="font-size: 1.25rem; color: #7091E6;">
+                        Are you ready to experience the power of advanced image and video forgery detection with ForgeryCheck? Click the button below to see how it works and explore how our technology can protect your digital content from manipulation.
+                    </p>
+                    <a href="{% url 'how_it_works' %}" class="btn btn-primary btn-lg mt-3">See How It Works</a>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="{% static 'img/cta-image.png' %}" alt="Forgery Detection" style="max-width: 100%; height: auto; border-radius: 10px;" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- End: Call-to-Action Section -->
+{% endblock %}

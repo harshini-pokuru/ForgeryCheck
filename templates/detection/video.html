@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-4">
+    <div class="report-header mb-4">
+        <h2 class="text-center fw-bold">Video Analysis</h2>
+        <div class="report-divider"><span></span></div>
+    </div>
+    
+    <!-- Video Preview Section - Centered -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 text-center">
+            <!-- Added heading above video preview -->
+            <h4 class="text-center pt-4"><i class="fas fa-video me-2"></i>Video Preview</h4>
+            {% if input_video %}
+            <video id="video-preview" controls class="img-fluid" style="max-height: 500px; background-color: #222222; object-fit: contain;">
+                <source src="{{ input_video }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            {% else %}
+            <div class="alert alert-info">
+                No video uploaded. <a href="{% url 'video_upload' %}" class="alert-link">Upload a video</a> to analyze.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Results Section -->
+    {% if result %}
+    <div class="mt-5 text-center result-section">
+        <!-- Updated result text styling -->
+        <h2 class="fw-bold mb-3">Result</h2>
+        
+        <h4 class="fw-bold">
+            Video is
+            {% if result.type == "Authentic" %}
+                <div class="stamp-container">
+                    <img src="{% static 'img/authentic-stamp.png' %}" alt="Authentic" class="stamp-img stamp-authentic">
+                </div>
+            {% else %}
+                <div class="stamp-container">
+                    <img src="{% static 'img/fake-stamp.png' %}" alt="Forged" class="stamp-img stamp-forged">
+                </div>
+            {% endif %}
+        </h4>
+        
+        {% if result.type == "Forged" %}
+        <h4 class="fw-bold mt-4">
+            Number of Forged Frames: {{ result.forged_frames }}
+        </h4>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <!-- Error Display -->
+    {% if error %}
+    <div class="alert alert-danger mt-3">
+        <strong>Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+
+    <!-- Metadata and Analysis Info Section -->
+    {% if video_metadata or result %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="metadata-card">
+                <div class="metadata-card-header">
+                    <h4><i class="fas fa-info-circle me-2"></i>Video Metadata</h4>
+                </div>
+                <div class="metadata-card-body">
+                    <table class="table metadata-table">
+                        <tbody>
+                            {% if video_metadata %}
+                                {% for key, value in video_metadata.items %}
+                                    {% if value and not 'err!' in value and not 'Unable to create value' in value and not 'float division by zero' in value %}
+                                    <tr>
+                                        <th scope="row">{{ key|title }}</th>
+                                        <td>{{ value }}</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="2" class="text-center">No metadata available</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="row">
+                <!-- Video Status Card -->
+                <div class="col-12 mb-3">
+                    <div class="forensic-card">
+                        <div class="forensic-card-icon">
+                            <i class="fas {% if result.type == 'Authentic' %}fa-check-circle{% else %}fa-exclamation-triangle{% endif %}"></i>
+                        </div>
+                        <div class="forensic-card-content">
+                            <h5>Video Status</h5>
+                            <p>{% if result.type == "Authentic" %}No manipulation detected{% else %}Digital manipulation detected{% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detection Method Card -->
+                <div class="col-12 mb-3">
+                    <div class="forensic-card">
+                        <div class="forensic-card-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="forensic-card-content">
+                            <h5>Detection Method</h5>
+                            <p>Deep Learning Frame Analysis</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Verification Card -->
+                <div class="col-12 mb-3">
+                    <div class="forensic-card">
+                        <div class="forensic-card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="forensic-card-content">
+                            <h5>Verification</h5>
+                            <p>
+                                {% if result.type == "Forged" %}
+                                    {{ result.forged_frames }} frames show evidence of manipulation
+                                {% else %}
+                                    Frame-by-frame analysis shows no tampering
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Analysis Date Card -->
+                <div class="col-12 mb-3">
+                    <div class="forensic-card">
+                        <div class="forensic-card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="forensic-card-content">
+                            <h5>Analysis Date</h5>
+                            <p>{% now "F d, Y" %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Upload New Video Button - Moved to bottom -->
+    <div class="text-center mt-5 mb-4">
+        <a href="{% url 'video_upload' %}" class="btn btn-primary btn-lg" style="background: #7091E6;">
+            <i class="fas fa-upload me-2"></i> Upload New Video
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    $(document).ready(function() {
+        // Add any video-specific JavaScript here
+    });
+</script>
+{% endblock %}

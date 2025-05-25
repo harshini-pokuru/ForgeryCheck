@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Analysis History - Forgery Check{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<div class="container mt-5">
+    <!-- Message Display -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- History Header - Updated with blue styling and centered -->
+    <div class="history-header mb-4 text-center" style="color: #3f51b5;">
+        <h2><i class="fas fa-history me-3"></i> Your Analysis History</h2>
+        <p class="text-muted">Track all your previous analysis results</p>
+    </div>
+
+    <!-- History Content -->
+    {% if analysis_history %}
+        <div class="history-grid">
+            {% for analysis in analysis_history %}
+                <!-- Card content remains the same -->
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center p-5 bg-light rounded">
+            <img src="{% static 'img/empty-history.jpg' %}" alt="No Analysis History" class="img-fluid mb-3" style="width: 100px; height: auto;"> <!-- Reduced size -->
+            <h4>No Analysis History Found</h4>
+            <p class="text-muted">You haven't analyzed any images or videos yet.</p>
+            <a href="{% url 'image_upload' %}" class="btn btn-primary mt-2">Analyze an Image</a>
+            <a href="{% url 'video_upload' %}" class="btn btn-secondary mt-2">Analyze a Video</a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Delete Modal remains the same -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <!-- Modal content remains the same -->
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <!-- Scripts remain the same -->
+{% endblock %}

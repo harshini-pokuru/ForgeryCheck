@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Frequently Asked Questions{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5 mb-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">FAQs</h1>
+        <p class="lead text-muted">Find answers to common questions about our forgery detection tool.</p>
+    </div>
+
+    <!-- Floating Image -->
+    <div class="text-center floating-image mb-5">
+        <img src="{% static 'img/faq.png' %}" alt="FAQs Image" class="img-fluid" style="max-width: 400px; margin: 0 auto;">
+    </div>
+
+    <div class="accordion" id="faqAccordion">
+        <!-- Existing FAQ Items -->
+        <!-- FAQ Item 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="color: #3D52A0;">
+                    What types of files can I upload?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    You can upload common image formats (like JPG, PNG) and video formats (like MP4, AVI, MOV). We are continuously working to support more formats.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="color: #3D52A0;">
+                    How accurate is the detection?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Our tool uses multiple algorithms to provide a high degree of accuracy. However, no detection method is 100% foolproof, especially with sophisticated forgeries. The results should be used as a strong indicator, often combined with expert analysis for critical cases.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="color: #3D52A0;">
+                    Is my uploaded data secure?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    We prioritize user privacy and data security. Uploaded files are processed securely and are typically deleted after analysis unless you are logged in and choose to save the results to your history. Please refer to our Privacy Policy for more details.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="color: #3D52A0;">
+                    What do ELA, Noise Analysis, etc., mean?
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    These are different techniques used to detect manipulations:
+                    <ul>
+                        <li><strong>ELA (Error Level Analysis):</strong> Identifies areas of an image with different compression levels, which can indicate modification.</li>
+                        <li><strong>Noise Analysis:</strong> Examines the noise patterns across an image, as manipulations often disrupt these patterns.</li>
+                        <li><strong>Metadata Analysis:</strong> Checks the file's embedded information (like camera model, software used) for inconsistencies.</li>
+                        <li><strong>Copy-Move Detection:</strong> Looks for duplicated regions within an image, a common sign of tampering.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional FAQ Items -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style="color: #3D52A0;">
+                    How does the tool handle video forgery detection?
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Our video forgery detection uses advanced neural networks to analyze frames for inconsistencies and signs of tampering. The model is trained on a diverse dataset to ensure robustness.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSix">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" style="color: #3D52A0;">
+                    Can I save my analysis results?
+                </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Yes, if you are logged in, you can choose to save your analysis results to your history for future reference.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 7 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSeven">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven" style="color: #3D52A0;">
+                    What is the maximum file size I can upload?
+                </button>
+            </h2>
+            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    The maximum file size for uploads is 100MB. Larger files may require additional processing time.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 8 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingEight">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight" style="color: #3D52A0;">
+                    How can I contact support for technical issues?
+                </button>
+            </h2>
+            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    You can contact our support team via the "Contact Us" page for any technical issues or inquiries.
+                </div>
+            </div>
+        </div>
+
+        <!-- New FAQ Items -->
+        <!-- FAQ Item 9 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingNine">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" style="color: #3D52A0;">
+                    What algorithms are used for image forgery detection?
+                </button>
+            </h2>
+            <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    We use a combination of Error Level Analysis (ELA), Noise Analysis, and Copy-Move Detection to identify potential forgeries in images.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 10 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTen">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen" style="color: #3D52A0;">
+                    How does the system handle video uploads?
+                </button>
+            </h2>
+            <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Videos are processed frame by frame using our neural network models to detect signs of forgery.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 11 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingEleven">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven" style="color: #3D52A0;">
+                    Can I view my analysis history?
+                </button>
+            </h2>
+            <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Yes, logged-in users can view their analysis history on the history page.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 12 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwelve">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve" style="color: #3D52A0;">
+                    How do I register for an account?
+                </button>
+            </h2>
+            <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    You can register for an account by visiting the registration page and filling out the required information.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 13 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThirteen">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen" style="color: #3D52A0;">
+                    What is the process for video forgery detection?
+                </button>
+            </h2>
+            <div id="collapseThirteen" class="accordion-collapse collapse" aria-labelledby="headingThirteen" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    The video forgery detection process involves analyzing each frame for inconsistencies using our trained models.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 14 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFourteen">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen" style="color: #3D52A0;">
+                    How can I update my profile information?
+                </button>
+            </h2>
+            <div id="collapseFourteen" class="accordion-collapse collapse" aria-labelledby="headingFourteen" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    You can update your profile information by visiting the profile page after logging in.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 15 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFifteen">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifteen" aria-expanded="false" aria-controls="collapseFifteen" style="color: #3D52A0;">
+                    What happens if I delete my analysis history?
+                </button>
+            </h2>
+            <div id="collapseFifteen" class="accordion-collapse collapse" aria-labelledby="headingFifteen" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Deleting your analysis history will permanently remove all records of your past analyses.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 16 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSixteen">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSixteen" aria-expanded="false" aria-controls="collapseSixteen" style="color: #3D52A0;">
+                    How do I reset my password?
+                </button>
+            </h2>
+            <div id="collapseSixteen" class="accordion-collapse collapse" aria-labelledby="headingSixteen" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    You can reset your password by clicking on the "Forgot Password" link on the login page and following the instructions.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 17 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSeventeen">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeventeen" aria-expanded="false" aria-controls="collapseSeventeen" style="color: #3D52A0;">
+                    How do I delete my account?
+                </button>
+            </h2>
+            <div id="collapseSeventeen" class="accordion-collapse collapse" aria-labelledby="headingSeventeen" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To delete your account, please contact our support team through the "Contact Us" page.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 18 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingEighteen">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEighteen" aria-expanded="false" aria-controls="collapseEighteen" style="color: #3D52A0;">
+                    How do I change my email address?
+                </button>
+            </h2>
+            <div id="collapseEighteen" class="accordion-collapse collapse" aria-labelledby="headingEighteen" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    You can change your email address by visiting the profile page and updating your information.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 19 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwenty">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwenty" aria-expanded="false" aria-controls="collapseTwenty" style="color: #3D52A0;">
+                    How do I report a bug or issue?
+                </button>
+            </h2>
+            <div id="collapseTwenty" class="accordion-collapse collapse" aria-labelledby="headingTwenty" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    You can report bugs or issues by contacting our support team through the "Contact Us" page.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA Button for Additional Questions -->
+    <div class="text-center mt-5">
+        <p class="lead text-muted">If you have any other questions not covered here, feel free to reach out to us.</p>
+        <a href="{% url 'contact' %}" class="btn btn-primary" style="background-color: #7091E6; border-color: #7091E6;">Contact Us</a>
+    </div>
+</div>
+{% endblock %}

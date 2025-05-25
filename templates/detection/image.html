@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-4">
+    <div class="report-header mb-4">
+        <h2 class="text-center fw-bold">Image Analysis</h2>
+        <div class="report-divider"><span></span></div>
+    </div>
+    
+    <div class="row mb-4 g-4">
+        <!-- Display Uploaded Image Section -->
+        <div class="col-md-6 d-flex flex-column">
+            <h4 class="text-center"><i class="fas fa-image me-2"></i>Original Image</h4>
+            <div class="mt-auto">
+                <img id="upl_img" src="{{ input_image }}" 
+                style="background-color: #222222;width: 500px;height: 500px;object-fit: contain;">
+            </div>
+        </div>
+        
+        <!-- Forensics Images Section -->
+        <div class="col-md-6 d-flex flex-column" id="imagegenerationSecton">
+            <form method="POST" action="{% url 'get_images' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="input_image_path" value="{{ input_image }}">
+                <!-- Place buttons in a single line above the image -->
+                <div class="d-flex justify-content-center flex-wrap" style="margin: 10px;">
+                    <button id="maskButton" class="btn btn-primary mx-1" type="submit" name="mask" value="mask"
+                        style="background: #7091E6; font-size: 14px;">Mask</button>
+                    <button class="btn btn-primary mx-1" type="submit" name="ela" value="ela"
+                        style="background: #7091E6; font-size: 14px;">ELA</button>
+                    <button class="btn btn-primary mx-1" type="submit" name="edge_map" value="edge_map"
+                        style="background: #7091E6; font-size: 14px;">Edge Map</button>
+                    <button class="btn btn-primary mx-1" type="submit" name="na" value="na"
+                        style="background: #7091E6; font-size: 14px;">Noise Analysis</button>
+                    <button class="btn btn-primary mx-1" type="submit" name="copy_move_sift" value="copy_move_sift"
+                        style="background: #7091E6; font-size: 14px;">Copy Move</button>
+                </div>
+                
+                <div class="mt-auto">
+                    <!-- Display the output image without the analysis type heading -->
+                    {% if ela_url %}
+                    <img id="output_img" alt="Output" src="{{ ela_url }}" class="zoom2" data-magnify-src="{{ ela_url }}"
+                        style="background-color: #222222;width: 500px;height: 500px;object-fit: contain; image-orientation: from-image;">
+                    {% else %}
+                    <div class="text-center p-5 bg-light rounded">
+                        <p>No analysis image available. Please run an analysis.</p>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Display error if any -->
+                {% if error %}
+                <div class="alert alert-danger mt-3">
+                    <strong>Error:</strong> {{ error }}
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    {% if result %}
+    <div class="mt-5 text-center result-section">
+        <h2 class="fw-bold mb-3">Result: 
+            {% if result.type == "Authentic" %}
+                <div class="stamp-container">
+                    <img src="{% static 'img/authentic-stamp.png' %}" alt="Authentic" class="stamp-img stamp-authentic">
+                </div>
+            {% else %}
+                <div class="stamp-container">
+                    <img src="{% static 'img/fake-stamp.png' %}" alt="Forged" class="stamp-img stamp-forged">
+                </div>
+            {% endif %}
+        </h2>
+        
+        <h4 class="fw-bold mt-4">
+            Confidence: {{ result.confidence }}%
+        </h4>
+    </div>
+    {% endif %}
+
+    <!-- Modified this condition to ensure metadata cards display properly -->
+    {% if metadata or result %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="metadata-card">
+                <div class="metadata-card-header">
+                    <h4><i class="fas fa-info-circle me-2"></i>Image Metadata</h4>
+                </div>
+                <div class="metadata-card-body">
+                    <table class="table metadata-table">
+                        <tbody>
+                            {% if metadata %}
+                                {% for key, value in metadata %}
+                                    {% if value and not 'err!' in value and not 'Unable to create value' in value and not 'float division by zero' in value %}
+                                    <tr>
+                                        <th scope="row">{{ key }}</th>
+                                        <td>{{ value }}</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="2" class="text-center">No metadata available</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="row">
+                <!-- Image Status Card -->
+                <div class="col-12 mb-3">
+                    <div class="forensic-card">
+                        <div class="forensic-card-icon">
+                            <i class="fas {% if result.type == 'Authentic' %}fa-check-circle{% else %}fa-exclamation-triangle{% endif %}"></i>
+                        </div>
+                        <div class="forensic-card-content">
+                            <h5>Image Status</h5>
+                            <p>{% if result.type == "Authentic" %}No manipulation detected{% else %}Digital manipulation detected{% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detection Method Card -->
+                <div class="col-12 mb-3">
+                    <div class="forensic-card">
+                        <div class="forensic-card-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="forensic-card-content">
+                            <h5>Detection Method</h5>
+                            <p>
+                                {{ detection_method|default:"CNN-based Classification with ELA" }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Verification Card -->
+                <div class="col-12 mb-3">
+                    <div class="forensic-card">
+                        <div class="forensic-card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="forensic-card-content">
+                            <h5>Verification</h5>
+                            <p>
+                                {% if verification_text %}
+                                    {{ verification_text }}
+                                {% elif result.type == "Forged" %}
+                                    Forensic analysis confirms manipulation
+                                {% else %}
+                                    Multiple forensic techniques applied
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Analysis Date Card -->
+                <div class="col-12 mb-3">
+                    <div class="forensic-card">
+                        <div class="forensic-card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="forensic-card-content">
+                            <h5>Analysis Date</h5>
+                            <p>{% now "F d, Y" %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Upload New Image Button - Added at bottom -->
+    <div class="text-center mt-5 mb-4">
+        <a href="{% url 'image_upload' %}" class="btn btn-primary btn-lg" style="background: #7091E6;">
+            <i class="fas fa-upload me-2"></i> Upload New Image
+        </a>
+    </div>
+
+</div>
+{% endblock %}
+
+<!-- Scripts -->
+{% block extra_scripts %}
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.3/js/jquery.magnify.min.js"
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $(document).ready(function () {
+        // Only initialize magnify for the analysis image with reduced zoom
+        $('.zoom2').magnify({
+            speed: 100,
+            zIndex: 1000,
+            magnifiedWidth: 600,  // Reduced zoom width
+            magnifiedHeight: 600, // Reduced zoom height
+            limitBounds: true     // Prevent the magnified image from going outside
+        });
+        
+        // Refresh the output image when loaded to prevent caching issues
+        $("#output_img").on("error", function() {
+            $(this).attr("src", $(this).attr("src") + "&refresh=" + new Date().getTime());
+        });
+    });
+
+    var img_res = "{{ result.type }}";
+    var imagesSection = document.getElementById('imagegenerationSecton');
+    var maskButton = document.getElementById('maskButton');
+
+    if (img_res) {
+        imagesSection.style.display = "block";
+        if (img_res === "Forged") {
+            maskButton.style.display = "block";
+        } else {
+            maskButton.style.display = "none";
+        }
+    } else {
+        imagesSection.style.display = "none";
+    }
+</script>
+{% endblock %}

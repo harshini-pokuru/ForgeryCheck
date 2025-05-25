@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}How Forgery Check Works{% endblock %}
+
+{% block content %}
+<style>
+    .feature-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: #f8f9fa;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .icon-circle {
+        background-color: #EDE8F5;
+        transition: background-color 0.3s ease;
+    }
+    
+    .feature-card:hover .icon-circle {
+        background-color: #d0d0ff;
+    }
+    
+    .feature-card:hover h4 {
+        color: #2a3b8f;
+    }
+</style>
+
+<div class="container mt-5 pt-5 mb-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">How It Works</h1>
+        <p class="lead text-muted">Understand the simple steps to detect manipulation in images and videos.</p>
+    </div>
+
+    <!-- Added heading above cards -->
+    <div class="text-center mb-4">
+        <h2 style="color: #3D52A0;">Image Forgery Detection</h2>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+        <!-- Step 1 -->
+        <div class="col-md-3">
+            <div class="card feature-card h-100 shadow-sm border-0 rounded-3 p-3 text-center">
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="rounded-circle icon-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <img src="{% static 'img/upload.png' %}" alt="Upload Image" style="width: 40px;">
+                    </div>
+                </div>
+                <h4 class="fw-bold" style="color: #3D52A0;">Image Upload</h4>
+                <p class="text-muted">User uploads a suspicious image through the web interface.</p>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="col-md-3">
+            <div class="card feature-card h-100 shadow-sm border-0 rounded-3 p-3 text-center">
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="rounded-circle icon-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <img src="{% static 'img/analysis.png' %}" alt="Initial Analysis" style="width: 40px;">
+                    </div>
+                </div>
+                <h4 class="fw-bold" style="color: #3D52A0;">Initial Analysis</h4>
+                <p class="text-muted">The system performs ELA and runs the deep learning model to classify the image.</p>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="col-md-3">
+            <div class="card feature-card h-100 shadow-sm border-0 rounded-3 p-3 text-center">
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="rounded-circle icon-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <img src="{% static 'img/detailed.png' %}" alt="Detailed Analysis" style="width: 40px;">
+                    </div>
+                </div>
+                <h4 class="fw-bold" style="color: #3D52A0;">Detailed Analysis</h4>
+                <p class="text-muted">The user can select different analysis methods like ELA, Noise Analysis, and more.</p>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="col-md-3">
+            <div class="card feature-card h-100 shadow-sm border-0 rounded-3 p-3 text-center">
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="rounded-circle icon-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <img src="{% static 'img/results.png' %}" alt="Results" style="width: 40px;">
+                    </div>
+                </div>
+                <h4 class="fw-bold" style="color: #3D52A0;">Results</h4>
+                <p class="text-muted">The system displays analysis results with a confidence score and visual evidence.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="{% url 'image_upload' %}" class="btn btn-primary btn-lg me-2">Analyze an Image</a>
+    </div>
+
+    <!-- Added heading for Video Forgery Detection section -->
+    <div class="text-center mt-5 mb-4">
+        <h2 style="color: #3D52A0;">Video Forgery Detection</h2>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+        <!-- Step 1 -->
+        <div class="col-md-3">
+            <div class="card feature-card h-100 shadow-sm border-0 rounded-3 p-3 text-center">
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="rounded-circle icon-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <img src="{% static 'img/video-upload.png' %}" alt="Upload Video" style="width: 40px;">
+                    </div>
+                </div>
+                <h4 class="fw-bold" style="color: #3D52A0;">Video Upload</h4>
+                <p class="text-muted">User uploads a suspicious video through the web interface.</p>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="col-md-3">
+            <div class="card feature-card h-100 shadow-sm border-0 rounded-3 p-3 text-center">
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="rounded-circle icon-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <img src="{% static 'img/frames.png' %}" alt="Frame Processing" style="width: 40px;">
+                    </div>
+                </div>
+                <h4 class="fw-bold" style="color: #3D52A0;">Frame Processing</h4>
+                <p class="text-muted">The video is split into frames and resized for consistent analysis.</p>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="col-md-3">
+            <div class="card feature-card h-100 shadow-sm border-0 rounded-3 p-3 text-center">
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="rounded-circle icon-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <img src="{% static 'img/ai.png' %}" alt="Model Prediction" style="width: 40px;">
+                    </div>
+                </div>
+                <h4 class="fw-bold" style="color: #3D52A0;">Model Prediction</h4>
+                <p class="text-muted">A deep learning model evaluates all frames for potential forgery signs.</p>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="col-md-3">
+            <div class="card feature-card h-100 shadow-sm border-0 rounded-3 p-3 text-center">
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="rounded-circle icon-circle d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                        <img src="{% static 'img/results.png' %}" alt="Results" style="width: 40px;">
+                    </div>
+                </div>
+                <h4 class="fw-bold" style="color: #3D52A0;">Results</h4>
+                <p class="text-muted">The system displays the final verdict along with forged frame count and probability scores.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 mb-5">
+        <a href="{% url 'video_upload' %}" class="btn btn-primary btn-lg">Analyze a Video</a>
+    </div>
+</div>
+{% endblock %}
